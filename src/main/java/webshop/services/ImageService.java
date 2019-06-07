@@ -9,6 +9,7 @@ import webshop.repositories.ImageRepository;
 
 import javax.persistence.PersistenceException;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ImageService {
@@ -23,7 +24,7 @@ public class ImageService {
     public Image saveImage(MultipartFile file) {
         String name = StringUtils.cleanPath(file.getOriginalFilename());
         try {
-            if(name.contains("..")) {
+            if (name.contains("..")) {
                 throw new IllegalArgumentException();
             }
 
@@ -38,5 +39,9 @@ public class ImageService {
     public Image getImage(String id) {
         return imageRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public List<String> getImageIds() {
+        return imageRepository.findAllIds();
     }
 }
