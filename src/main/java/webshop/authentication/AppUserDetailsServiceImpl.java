@@ -1,4 +1,4 @@
-package webshop.services;
+package webshop.authentication;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

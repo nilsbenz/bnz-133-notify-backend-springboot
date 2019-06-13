@@ -11,8 +11,12 @@ import webshop.services.AuthService;
 @RestController
 public class AuthController {
 
-    @Autowired
     private AuthService authService;
+
+    @Autowired
+    AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @RequestMapping(value = "/api/auth/register", method = RequestMethod.POST)
     public Long registerUser(@RequestBody AppUser userData) {
