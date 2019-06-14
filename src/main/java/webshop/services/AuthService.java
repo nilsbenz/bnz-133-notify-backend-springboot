@@ -19,30 +19,28 @@ public class AuthService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public Long registerUser(AppUser user) {
+    public void registerUser(AppUser user) {
         for (AppUser u : appUserRepository.findAll()) {
             if (u.getUsername().equalsIgnoreCase(user.getUsername())) {
-                throw new IllegalArgumentException("username already taken");
+                throw new IllegalArgumentException("Dieser Benutzername ist bereits vergeben.");
             }
             if (u.getMail().equalsIgnoreCase(user.getMail())) {
-                throw new IllegalArgumentException("email already taken");
+                throw new IllegalArgumentException("Diese Mailadresse ist bereits vergeben.");
             }
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         appUserRepository.save(user);
-        return user.getId();
     }
 
-    public Long logInUser(AppUser user) {
+    public void logInUser(AppUser user) {
         AppUser userByUsername = appUserRepository.findAll()
                 .stream()
                 .filter(u -> u.getUsername().equals(user.getUsername()))
                 .findAny()
-                .get();
+                .orElseThrow(IllegalArgumentException::new);
 
-        if (bCryptPasswordEncoder.matches(user.getPassword(), userByUsername.getPassword())) {
-            return appUserRepository.findByUsername(user.getUsername()).getId();
+        if (!bCryptPasswordEncoder.matches(user.getPassword(), userByUsername.getPassword())) {
+            throw new IllegalArgumentException("invalid usercredentials");
         }
-        throw new IllegalArgumentException("invalid usercredentials");
     }
 }

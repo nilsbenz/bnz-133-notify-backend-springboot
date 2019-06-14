@@ -19,12 +19,12 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/api/auth/register", method = RequestMethod.POST)
-    public Long registerUser(@RequestBody AppUser userData) {
-        return authService.registerUser(userData);
+    public void registerUser(@RequestBody AppUser userData) {
+        authService.registerUser(userData);
     }
 
     @RequestMapping(value = "/api/auth/login", method = RequestMethod.POST)
-    public Long logInUser(@RequestBody AppUser userData) {
-        return authService.logInUser(userData);
+    public void logInUser(@RequestBody AppUser userData) {
+        authService.logInUser(userData);
     }
 }

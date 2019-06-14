@@ -9,8 +9,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static webshop.authentication.SecurityConstants.IMAGES_URL;
+import static webshop.authentication.SecurityConstants.IMAGE_URL;
 import static webshop.authentication.SecurityConstants.LOG_IN_URL;
 import static webshop.authentication.SecurityConstants.SIGN_UP_URL;
+import static webshop.authentication.SecurityConstants.VIDEO_URL;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -29,8 +31,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth/login");
 
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL, LOG_IN_URL, IMAGES_URL).permitAll()
-                .antMatchers(HttpMethod.GET, IMAGES_URL).permitAll()
+                .antMatchers(HttpMethod.POST, SIGN_UP_URL, LOG_IN_URL, IMAGES_URL, VIDEO_URL).permitAll()
+                .antMatchers(HttpMethod.GET, IMAGES_URL, IMAGE_URL, VIDEO_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(jwtAuthenticationFilter)
