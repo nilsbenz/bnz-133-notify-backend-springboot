@@ -34,7 +34,7 @@ public class ImageController {
 
     @RequestMapping(value = "/api/images/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource> getImage(@PathVariable("id") String id) {
-        Image image = imageService.getImage(id);
+        Image image = imageService.getThumbnailImage(id);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(image.getType()))
@@ -46,5 +46,25 @@ public class ImageController {
     public String saveImage(@RequestParam("image") MultipartFile file) {
         Image image = imageService.saveImage(file);
         return image.getId();
+    }
+
+    @RequestMapping(value = "/api/images/buy/{id}", method = RequestMethod.POST)
+    public void buyImage(@PathVariable("id") String id) {
+        imageService.buyImage(id);
+    }
+
+    @RequestMapping(value = "/api/images/licensed/{id}", method = RequestMethod.GET)
+    public boolean isLicensed(@PathVariable("id") String id) {
+        return imageService.isLicensed(id);
+    }
+
+    @RequestMapping(value = "/api/download/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloadImage(@PathVariable("id") String id) {
+        Image image = imageService.getImage(id);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(image.getType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
+                .body(new ByteArrayResource(image.getData()));
     }
 }

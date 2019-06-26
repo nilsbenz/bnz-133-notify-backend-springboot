@@ -3,6 +3,7 @@ package webshop.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import webshop.authentication.IAuthenticationFacade;
 import webshop.entities.AppUser;
 import webshop.repositories.AppUserRepository;
 
@@ -13,10 +14,13 @@ public class AuthService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private IAuthenticationFacade authenticationFacade;
+
     @Autowired
-    AuthService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    AuthService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder, IAuthenticationFacade authenticationFacade) {
         this.appUserRepository = appUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.authenticationFacade = authenticationFacade;
     }
 
     public void registerUser(AppUser user) {
@@ -42,5 +46,10 @@ public class AuthService {
         if (!bCryptPasswordEncoder.matches(user.getPassword(), userByUsername.getPassword())) {
             throw new IllegalArgumentException("invalid usercredentials");
         }
+    }
+
+    public AppUser getCurrentUser() {
+        String user = authenticationFacade.getAuthentication().getName();
+        return appUserRepository.findByUsername(user);
     }
 }
