@@ -26,6 +26,7 @@ dependencies {
 	compile("com.oracle:ojdbc6:11.2.0.3")
 	compile('javax.xml.bind:jaxb-api:2.3.0')
 	compile("com.auth0:java-jwt:3.4.0")
+	compile("org.imgscalr:imgscalr-lib:4.2")
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile("org.springframework.boot:spring-boot-starter-security")

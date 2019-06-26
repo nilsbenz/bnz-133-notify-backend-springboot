@@ -1,9 +1,11 @@
 package webshop.controller;
 
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import webshop.entities.Image;
 import webshop.services.ImageService;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -33,13 +41,23 @@ public class ImageController {
     }
 
     @RequestMapping(value = "/api/images/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> getImage(@PathVariable("id") String id) {
-        Image image = imageService.getThumbnailImage(id);
+    public ResponseEntity getImage(@PathVariable("id") String id) {
+        Image image = imageService.getImage(id);
+        InputStream in = new ByteArrayInputStream(image.getData());
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(image.getType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
-                .body(new ByteArrayResource(image.getData()));
+        try {
+            ByteArrayOutputStream thumbOutput = new ByteArrayOutputStream();
+            BufferedImage thumbImg;
+            BufferedImage img = ImageIO.read(in);
+            thumbImg = Scalr.resize(img, Scalr.Method.AUTOMATIC, Scalr.Mode.AUTOMATIC, 500, Scalr.OP_ANTIALIAS);
+            ImageIO.write(thumbImg, image.getType().split("/")[1], thumbOutput);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(image.getType()))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
+                    .body(new ByteArrayResource(thumbOutput.toByteArray()));
+        } catch(IOException ignored) {}
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/api/images", method = RequestMethod.POST)
