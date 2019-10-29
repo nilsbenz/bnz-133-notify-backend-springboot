@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'webshop-backend'
+rootProject.name = 'notify-backend'

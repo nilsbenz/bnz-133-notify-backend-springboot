@@ -1,16 +1,18 @@
-package webshop.entities;
+package notify.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "images")
-public class Image {
+@Table(name = "files")
+public class File {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -24,12 +26,17 @@ public class Image {
     @Lob
     private byte[] data;
 
-    public Image() {}
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private AppUser user;
 
-    public Image(String name, String type, byte[] data) {
+    public File() {}
+
+    public File(String name, String type, byte[] data, AppUser user) {
         this.name = name;
         this.type = type;
         this.data = data;
+        this.user = user;
     }
 
     public String getId() {
@@ -62,5 +69,13 @@ public class Image {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 }

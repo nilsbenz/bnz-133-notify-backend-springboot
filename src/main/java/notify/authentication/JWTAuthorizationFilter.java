@@ -1,4 +1,4 @@
-package webshop.authentication;
+package notify.authentication;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import static webshop.authentication.SecurityConstants.HEADER_STRING;
-import static webshop.authentication.SecurityConstants.TOKEN_PREFIX;
-import static webshop.authentication.SecurityConstants.SECRET;
+import static notify.authentication.SecurityConstants.HEADER_STRING;
+import static notify.authentication.SecurityConstants.TOKEN_PREFIX;
+import static notify.authentication.SecurityConstants.SECRET;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

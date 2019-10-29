@@ -1,4 +1,4 @@
-package webshop.authentication;
+package notify.authentication;
 
 import org.springframework.security.core.Authentication;
 

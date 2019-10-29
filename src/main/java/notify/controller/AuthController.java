@@ -1,12 +1,12 @@
-package webshop.controller;
+package notify.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import webshop.entities.AppUser;
-import webshop.services.AuthService;
+import notify.entities.AppUser;
+import notify.services.AuthService;
 
 @RestController
 public class AuthController {

@@ -1,11 +1,11 @@
-package webshop.services;
+package notify.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import webshop.authentication.IAuthenticationFacade;
-import webshop.entities.AppUser;
-import webshop.repositories.AppUserRepository;
+import notify.authentication.IAuthenticationFacade;
+import notify.entities.AppUser;
+import notify.repositories.AppUserRepository;
 
 @Service
 public class AuthService {

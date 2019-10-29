@@ -1,4 +1,4 @@
-package webshop.authentication;
+package notify.authentication;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,11 +8,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static webshop.authentication.SecurityConstants.IMAGES_URL;
-import static webshop.authentication.SecurityConstants.IMAGE_URL;
-import static webshop.authentication.SecurityConstants.LOG_IN_URL;
-import static webshop.authentication.SecurityConstants.SIGN_UP_URL;
-import static webshop.authentication.SecurityConstants.VIDEO_URL;
+import static notify.authentication.SecurityConstants.IMAGES_URL;
+import static notify.authentication.SecurityConstants.IMAGE_URL;
+import static notify.authentication.SecurityConstants.LOG_IN_URL;
+import static notify.authentication.SecurityConstants.SIGN_UP_URL;
+import static notify.authentication.SecurityConstants.VIDEO_URL;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {

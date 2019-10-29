@@ -1,12 +1,12 @@
-package webshop.authentication;
+package notify.authentication;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import webshop.entities.AppUser;
-import webshop.repositories.AppUserRepository;
+import notify.entities.AppUser;
+import notify.repositories.AppUserRepository;
 
 import static java.util.Collections.emptyList;
 

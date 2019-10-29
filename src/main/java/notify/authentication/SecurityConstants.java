@@ -1,4 +1,4 @@
-package webshop.authentication;
+package notify.authentication;
 
 public class SecurityConstants {
     public static final String SECRET = "ThisKeyIsV3rySecret!";
